@@ -1,4 +1,4 @@
-# Taraneh: Persian speech recognition
+# Taraneh-ASR: Persian speech recognition
 
 Taraneh is a family of five Persian ASR models, fine-tuned on about 1,560 hours of Persian speech. Three are Whisper models and two are Qwen3-ASR models.
 
