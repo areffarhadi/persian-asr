@@ -10,7 +10,21 @@ Taraneh is a family of five Persian ASR models, fine-tuned on about 1,560 hours 
 | Taraneh-Q0.6B | Qwen3-ASR-0.6B | `Qwen/Qwen3-ASR-0.6B` |
 | Taraneh-Q1.7B | Qwen3-ASR-1.7B | `Qwen/Qwen3-ASR-1.7B` |
 
-Weights will be published on Hugging Face as `areffarhadi/Taraneh-WBase`, `areffarhadi/Taraneh-WMedium`, `areffarhadi/Taraneh-WLarge`, `areffarhadi/Taraneh-Q0.6B`, and `areffarhadi/Taraneh-Q1.7B`. Until then, pass a local checkpoint directory to `--model`.
+## Paper
+
+Aref Farhadipour. **Taraneh-ASR: Scaling Persian Speech Recognition and Forced Alignment Across Singing and Conversational Domains.** University of Zurich.
+
+The PDF is in this repository: [ArefFarhadi-TaranehASR.pdf](ArefFarhadi-TaranehASR.pdf). Each model card on Hugging Face links to the same paper.
+
+Model pages:
+
+- [areffarhadi/Taraneh-WBase](https://huggingface.co/areffarhadi/Taraneh-WBase)
+- [areffarhadi/Taraneh-WMedium](https://huggingface.co/areffarhadi/Taraneh-WMedium)
+- [areffarhadi/Taraneh-WLarge](https://huggingface.co/areffarhadi/Taraneh-WLarge)
+- [areffarhadi/Taraneh-Q0.6B](https://huggingface.co/areffarhadi/Taraneh-Q0.6B)
+- [areffarhadi/Taraneh-Q1.7B](https://huggingface.co/areffarhadi/Taraneh-Q1.7B)
+
+Pass either that Hugging Face id or a local checkpoint directory to `--model`.
 
 This repository covers inference, manifest preparation, text normalization for scoring, and fine-tuning.
 
