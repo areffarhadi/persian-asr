@@ -1,0 +1,10 @@
+torch
+transformers>=4.46
+accelerate
+datasets
+soundfile
+librosa
+pandas
+numpy
+evaluate
+jiwer

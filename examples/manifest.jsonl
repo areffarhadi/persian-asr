@@ -1,0 +1,2 @@
+{"audio": "/path/to/utt0001.wav", "text": "language fa<asr_text>این یک جمله آزمایشی است"}
+{"audio": "/path/to/utt0002.wav", "text": "language fa<asr_text>مدل ترانه گفتار فارسی را به متن تبدیل می‌کند"}

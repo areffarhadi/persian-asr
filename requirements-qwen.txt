@@ -1,0 +1,5 @@
+qwen-asr
+datasets
+librosa
+soundfile
+jiwer
