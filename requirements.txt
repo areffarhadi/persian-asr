@@ -8,3 +8,5 @@ pandas
 numpy
 evaluate
 jiwer
+# Optional, much faster Whisper inference:
+# ctranslate2

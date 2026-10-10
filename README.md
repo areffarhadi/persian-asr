@@ -92,33 +92,39 @@ Example files: `examples/manifest.csv`, `examples/manifest.jsonl`.
 
 Inference writes `inference_results.csv` with columns `path`, `original_text`, `generated_text`.
 
-Whisper, from the Hugging Face name or a local folder:
+Whisper and Qwen use different fast paths.
+
+### Whisper
+
+`scripts/infer_whisper.py` batches log-mel features and decodes with beam size 1, Persian forced from the start, and no timestamp tokens. When [CTranslate2](https://github.com/OpenNMT/CTranslate2) is installed it converts the checkpoint once into `~/.cache/taraneh/ct2/` and runs that engine. Otherwise it uses Transformers in float16 and skips the temperature-fallback retries.
 
 ```bash
-python scripts/infer.py \
+pip install ctranslate2
+python scripts/infer_whisper.py \
     --model Taraneh-WLarge \
     --manifest manifests/test.csv \
-    --output_dir results/Taraneh-WLarge
-```
-
-```bash
-python scripts/infer.py \
-    --model /path/to/whisper-checkpoint \
-    --manifest manifests/test.csv \
     --output_dir results/Taraneh-WLarge \
-    --batch_size 8
+    --batch_size 16
 ```
 
-Qwen. The numbers in the table used automatic language identification (`language` left unset):
+`--compute_type int8_float16` is faster still. `--compatible` turns the CTranslate2 path off and restores the slower Transformers decoder. Raise `--batch_size` until the GPU is full. A local checkpoint is `--model /path/to/checkpoint`.
+
+### Qwen
+
+`scripts/infer_qwen.py` uses vLLM when `qwen-asr[vllm]` is installed, and hands each chunk to the engine in one call. The Transformers fallback tries FlashAttention 2, then SDPA. Leave `--language` empty for the automatic language identification used in the table. `--language Persian` forces Persian.
 
 ```bash
-python scripts/infer.py \
+pip install "qwen-asr[vllm]"
+python scripts/infer_qwen.py \
     --model Taraneh-Q1.7B \
     --manifest manifests/test.csv \
-    --output_dir results/Taraneh-Q1.7B
+    --output_dir results/Taraneh-Q1.7B \
+    --batch_size 32
 ```
 
-Force Persian with `--language Persian`. One file, no manifest:
+`--batch_size` is how many waveforms are loaded at once. vLLM decodes that chunk together. If the process runs out of GPU memory, lower it, or pass `--backend transformers`.
+
+`scripts/infer.py` picks the family from the model name and calls the same engines. One file:
 
 ```bash
 python scripts/infer.py --model Taraneh-WMedium --audio utt.wav --output_dir results/one
@@ -218,7 +224,9 @@ python scripts/infer.py \
 ## Layout
 
 ```
-scripts/infer.py            inference for all five models
+scripts/infer_whisper.py     fast Whisper inference (CTranslate2)
+scripts/infer_qwen.py        fast Qwen inference (vLLM)
+scripts/infer.py            either family, same engines
 scripts/make_manifest.py    CSV manifest and Qwen JSONL
 scripts/train_whisper.py    Whisper fine-tuning
 finetuning/qwen3_asr_sft.py Qwen3-ASR fine-tuning

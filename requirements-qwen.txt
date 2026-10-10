@@ -1,4 +1,6 @@
 qwen-asr
+# Optional, much faster Qwen inference:
+# qwen-asr[vllm]
 datasets
 librosa
 soundfile
