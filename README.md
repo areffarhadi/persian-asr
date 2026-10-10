@@ -111,18 +111,37 @@ python scripts/infer_whisper.py \
 
 ### Qwen
 
-`scripts/infer_qwen.py` uses vLLM when `qwen-asr[vllm]` is installed, and hands each chunk to the engine in one call. The Transformers fallback tries FlashAttention 2, then SDPA. Leave `--language` empty for the automatic language identification used in the table. `--language Persian` forces Persian.
+`scripts/infer_qwen.py` runs Taraneh-Q0.6B and Taraneh-Q1.7B with vLLM. Streaming exists only on that backend. Install it with Python 3.10 or newer; the Qwen ASR package pins vLLM 0.14:
 
 ```bash
 pip install "qwen-asr[vllm]"
+```
+
+Leave `--language` empty for the automatic language identification used in the table. `--language Persian` forces Persian.
+
+Offline. The manifest is decoded in batches:
+
+```bash
 python scripts/infer_qwen.py \
     --model Taraneh-Q1.7B \
     --manifest manifests/test.csv \
     --output_dir results/Taraneh-Q1.7B \
+    --mode offline \
     --batch_size 32
 ```
 
-`--batch_size` is how many waveforms are loaded at once. vLLM decodes that chunk together. If the process runs out of GPU memory, lower it, or pass `--backend transformers`.
+`--batch_size` is how many waveforms are loaded at once. vLLM decodes that group in one call. Lower it if the GPU runs out of memory. `--backend transformers` is the non-vLLM offline path (SDPA or FlashAttention). It cannot stream.
+
+Streaming. Audio is 16 kHz, and the model updates the transcript after every chunk. The final line is written to `inference_results.csv`, same columns as offline. The Qwen API default chunk is 2 seconds. The streaming demo uses 1 second.
+
+```bash
+python scripts/infer_qwen.py \
+    --model Taraneh-Q1.7B \
+    --manifest manifests/test.csv \
+    --output_dir results/Taraneh-Q1.7B-stream \
+    --mode streaming \
+    --chunk_size_sec 2
+```
 
 `scripts/infer.py` picks the family from the model name and calls the same engines. One file:
 

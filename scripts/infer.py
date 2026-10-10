@@ -33,6 +33,8 @@ def main():
     p.add_argument("--device", type=str, default="auto")
     p.add_argument("--backend", type=str, default="auto")
     p.add_argument("--language", type=str, default="")
+    p.add_argument("--mode", choices=("offline", "streaming"), default="offline")
+    p.add_argument("--chunk_size_sec", type=float, default=2.0)
     p.add_argument("--compute_type", type=str, default="float16")
     p.add_argument("--compatible", action="store_true")
     args = p.parse_args()
@@ -48,7 +50,9 @@ def main():
             args.batch_size or 32,
             args.device,
             args.language or None,
-            backend=args.backend,
+            backend="vllm" if args.mode == "streaming" else args.backend,
+            mode=args.mode,
+            chunk_size_sec=args.chunk_size_sec,
         )
     else:
         hyps = transcribe_whisper(

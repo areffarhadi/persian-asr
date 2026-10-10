@@ -1,13 +1,25 @@
 #!/usr/bin/env python3
-"""Fast inference for Taraneh-Q0.6B and Taraneh-Q1.7B.
+"""vLLM inference for Taraneh-Q0.6B and Taraneh-Q1.7B.
+
+Offline, one batch:
 
     python scripts/infer_qwen.py \
         --model Taraneh-Q1.7B \
         --manifest manifests/test.csv \
         --output_dir results/Taraneh-Q1.7B \
+        --mode offline \
         --batch_size 32
 
-Install the fast backend once: pip install "qwen-asr[vllm]"
+Streaming, 2-second chunks:
+
+    python scripts/infer_qwen.py \
+        --model Taraneh-Q1.7B \
+        --manifest manifests/test.csv \
+        --output_dir results/Taraneh-Q1.7B-stream \
+        --mode streaming \
+        --chunk_size_sec 2
+
+Requires Python >= 3.10 and vLLM 0.14, which is what `qwen-asr[vllm]` installs.
 Leave --language empty to keep automatic language identification.
 """
 
@@ -32,9 +44,16 @@ def main():
     p.add_argument("--manifest", type=str)
     p.add_argument("--audio", type=str)
     p.add_argument("--output_dir", type=str, default="results")
-    p.add_argument("--batch_size", type=int, default=32, help="Utterances loaded together. vLLM decodes the chunk in one call.")
+    p.add_argument("--batch_size", type=int, default=32, help="Offline only. Utterances loaded together.")
     p.add_argument("--device", type=str, default="auto")
-    p.add_argument("--backend", choices=("auto", "vllm", "transformers"), default="auto")
+    p.add_argument("--backend", choices=("auto", "vllm", "transformers"), default="vllm")
+    p.add_argument("--mode", choices=("offline", "streaming"), default="offline")
+    p.add_argument(
+        "--chunk_size_sec",
+        type=float,
+        default=2.0,
+        help="Streaming only. Seconds of audio per update. 2.0 is the Qwen API default; the demo uses 1.0.",
+    )
     p.add_argument(
         "--language",
         type=str,
@@ -49,13 +68,18 @@ def main():
     rows = collect_inputs(args.manifest, args.audio)
     print(f"Model: {spec['name']} <- {spec['checkpoint']}")
     print(f"Utterances: {len(rows)}")
+    if args.mode == "streaming" and args.backend == "transformers":
+        raise SystemExit("Streaming requires --backend vllm.")
+    print(f"Mode: {args.mode}")
     hyps = transcribe(
         rows,
         spec["checkpoint"],
         args.batch_size,
         args.device,
         args.language or None,
-        backend=args.backend,
+        backend="vllm" if args.mode == "streaming" else args.backend,
+        mode=args.mode,
+        chunk_size_sec=args.chunk_size_sec,
     )
     write_results(rows, hyps, args.output_dir)
     if len(rows) == 1 and not args.manifest:

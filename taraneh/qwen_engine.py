@@ -73,6 +73,46 @@ def _load(checkpoint: str, backend: str, device: str, batch_size: int):
     return model
 
 
+def _prepare_device(device: str) -> str:
+    if device.startswith("cuda:") and "CUDA_VISIBLE_DEVICES" not in os.environ:
+        os.environ["CUDA_VISIBLE_DEVICES"] = device.split(":", 1)[1]
+        device = "cuda:0"
+    return _torch_device(device)
+
+
+def transcribe_streaming(
+    rows: pd.DataFrame,
+    checkpoint: str,
+    device: str,
+    language: str | None,
+    chunk_size_sec: float = 2.0,
+) -> list[str]:
+    """vLLM streaming. One utterance at a time, 16 kHz chunks, final text only."""
+    from taraneh.audio import TARGET_SR, load_audio
+
+    device = _prepare_device(device)
+    model = _load(checkpoint, "vllm", device, batch_size=1)
+    if getattr(model, "backend", None) != "vllm":
+        raise SystemExit("Qwen streaming requires the vLLM backend.")
+    lang = language or None
+    hyps: list[str] = []
+    paths = rows["path"].tolist()
+    for index, path in enumerate(paths, start=1):
+        try:
+            wav = load_audio(path, TARGET_SR)
+            state = model.init_streaming_state(language=lang, chunk_size_sec=chunk_size_sec)
+            step = state.chunk_size_samples
+            for start in range(0, wav.shape[0], step):
+                state = model.streaming_transcribe(wav[start : start + step], state)
+            state = model.finish_streaming_transcribe(state)
+            hyps.append((state.text or "").strip())
+        except Exception as exc:  # noqa: BLE001
+            print(f"Error processing {path}: {exc}")
+            hyps.append("ERROR")
+        print(f"{index}/{len(paths)}", flush=True)
+    return hyps
+
+
 def transcribe(
     rows: pd.DataFrame,
     checkpoint: str,
@@ -80,11 +120,12 @@ def transcribe(
     device: str,
     language: str | None,
     backend: str = "auto",
+    mode: str = "offline",
+    chunk_size_sec: float = 2.0,
 ) -> list[str]:
-    if device.startswith("cuda:") and "CUDA_VISIBLE_DEVICES" not in os.environ:
-        os.environ["CUDA_VISIBLE_DEVICES"] = device.split(":", 1)[1]
-        device = "cuda:0"
-    device = _torch_device(device)
+    if mode == "streaming":
+        return transcribe_streaming(rows, checkpoint, device, language, chunk_size_sec)
+    device = _prepare_device(device)
     model = _load(checkpoint, backend, device, batch_size)
     paths = rows["path"].tolist()
     lang = language or None

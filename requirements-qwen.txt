@@ -1,5 +1,5 @@
 qwen-asr
-# Optional, much faster Qwen inference:
+# vLLM offline and streaming. Python >= 3.10. This extra pins vllm==0.14.0.
 # qwen-asr[vllm]
 datasets
 librosa
