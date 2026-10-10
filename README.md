@@ -26,6 +26,17 @@ Model pages:
 
 Pass either that Hugging Face id or a local checkpoint directory to `--model`.
 
+## License
+
+The models are free for commercial use.
+
+| Models | License | Why |
+|---|---|---|
+| Taraneh-WBase, Taraneh-WMedium, Taraneh-WLarge | [MIT](https://opensource.org/license/mit) | Same license as OpenAI Whisper |
+| Taraneh-Q0.6B, Taraneh-Q1.7B | [Apache-2.0](https://www.apache.org/licenses/LICENSE-2.0) | Same license as Qwen3-ASR |
+
+MIT and Apache-2.0 both allow commercial products, including hosted APIs. Apache-2.0 also includes a patent grant. Keep the original license notice with the weights.
+
 This repository covers inference, manifest preparation, text normalization for scoring, and fine-tuning.
 
 ## Results
