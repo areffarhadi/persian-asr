@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-📑 <a href="ArefFarhadi-TaranehASR.pdf">Paper</a>&nbsp;&nbsp;|&nbsp;&nbsp;🤗 <a href="https://huggingface.co/areffarhadi">Hugging Face</a>
+📑 <a href="ArefFarhadi-TaranehASR.pdf">Paper</a>&nbsp;&nbsp;|&nbsp;&nbsp;🤗 <a href="https://huggingface.co/collections/areffarhadi/taraneh-asr-persian-automatic-speech-recognition">Hugging Face</a>
 </p>
 
 Taraneh is a family of five Persian ASR models, fine-tuned on about 1,560 hours of Persian speech. Three are Whisper models and two are Qwen3-ASR models.
