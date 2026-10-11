@@ -1,8 +1,12 @@
 # Taraneh-ASR: Persian speech recognition
 
-## درود بر پارسی‌زبانان،<br>و بر آن خاکِ گرامی.
+<p align="center">
+<b>درود بر پارسی‌زبانان،<br>و بر آن خاکِ گرامی.</b>
+</p>
 
-[Paper](ArefFarhadi-TaranehASR.pdf) · [Taraneh-WBase](https://huggingface.co/areffarhadi/Taraneh-WBase) · [Taraneh-WMedium](https://huggingface.co/areffarhadi/Taraneh-WMedium) · [Taraneh-WLarge](https://huggingface.co/areffarhadi/Taraneh-WLarge) · [Taraneh-Q0.6B](https://huggingface.co/areffarhadi/Taraneh-Q0.6B) · [Taraneh-Q1.7B](https://huggingface.co/areffarhadi/Taraneh-Q1.7B)
+<p align="center">
+📑 <a href="ArefFarhadi-TaranehASR.pdf">Paper</a>&nbsp;&nbsp;|&nbsp;&nbsp;🤗 <a href="https://huggingface.co/areffarhadi">Hugging Face</a>
+</p>
 
 Taraneh is a family of five Persian ASR models, fine-tuned on about 1,560 hours of Persian speech. Three are Whisper models and two are Qwen3-ASR models.
 
@@ -18,17 +22,9 @@ Taraneh is a family of five Persian ASR models, fine-tuned on about 1,560 hours 
 
 Aref Farhadipour. **Taraneh-ASR: Scaling Persian Speech Recognition and Forced Alignment Across Singing and Conversational Domains.** University of Zurich.
 
-The PDF is in this repository: [ArefFarhadi-TaranehASR.pdf](ArefFarhadi-TaranehASR.pdf). Each model card on Hugging Face links to the same paper.
+The PDF is in this repository: [ArefFarhadi-TaranehASR.pdf](ArefFarhadi-TaranehASR.pdf). The models and evaluation sets are on the [Hugging Face account](https://huggingface.co/areffarhadi). Each model card links to the same paper.
 
-Model pages:
-
-- [areffarhadi/Taraneh-WBase](https://huggingface.co/areffarhadi/Taraneh-WBase)
-- [areffarhadi/Taraneh-WMedium](https://huggingface.co/areffarhadi/Taraneh-WMedium)
-- [areffarhadi/Taraneh-WLarge](https://huggingface.co/areffarhadi/Taraneh-WLarge)
-- [areffarhadi/Taraneh-Q0.6B](https://huggingface.co/areffarhadi/Taraneh-Q0.6B)
-- [areffarhadi/Taraneh-Q1.7B](https://huggingface.co/areffarhadi/Taraneh-Q1.7B)
-
-Pass either that Hugging Face id or a local checkpoint directory to `--model`.
+Pass a model name from the table, such as `Taraneh-WLarge`, or a local checkpoint directory to `--model`. The script resolves the name to `areffarhadi/Taraneh-WLarge` on Hugging Face.
 
 ## License
 
