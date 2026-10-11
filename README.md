@@ -37,7 +37,7 @@ The models are free for commercial use.
 
 MIT and Apache-2.0 both allow commercial products, including hosted APIs. Apache-2.0 also includes a patent grant. Keep the original license notice with the weights.
 
-This repository covers inference, manifest preparation, text normalization for scoring, and fine-tuning.
+This repository covers inference, forced alignment, manifest preparation, text normalization for scoring, and fine-tuning.
 
 ## Results
 
@@ -175,6 +175,35 @@ python scripts/infer.py --model Taraneh-WMedium --audio utt.wav --output_dir res
 ```
 
 `--model` accepts `Taraneh-WBase`, `Taraneh-WMedium`, `Taraneh-WLarge`, `Taraneh-Q0.6B`, `Taraneh-Q1.7B`, a local checkpoint, or any Hugging Face repo id.
+
+### ASR, or ASR plus forced alignment
+
+`--task asr` is the default and writes only `inference_results.csv`. `--task asr+fa` also writes `alignments.jsonl`: one JSON object per clip, with the ASR transcript and a `words` list of `{word, start, end}` in seconds.
+
+Forced alignment is the paper readout, not a second trained model. It is available for Taraneh-WMedium, Taraneh-WLarge, Taraneh-Q0.6B, and Taraneh-Q1.7B. Taraneh-WBase is ASR only. Whisper alignment reads decoder cross-attention with eager attention, so it loads the Hugging Face checkpoint even when ASR itself used CTranslate2. Qwen alignment reads thinker self-attention the same way, even when ASR used vLLM. Whisper still sees at most 30 seconds.
+
+The recipe that matches the FarsDat table is: the heads below, a median filter of width 3, column L2-normalization, dynamic time warping on the negative attention matrix, and a −35 dB energy trim of the first-word start and last-word end. Whisper uses the attention probabilities as Hugging Face returns them, with no second softmax. Qwen uses three heads and does not refine boundaries inside an audio token. Dynamic time warping is the standard dynamic program in `alignment/whisper_forced_align.py`. No DTW weights were trained.
+
+Heads are 0-based `[layer, head]`. These are the heads selected on a 300-clip gold pool and applied to held-out speech, which is the set behind the reported test-half numbers. The paper names the same layers: L16 and L19 for Taraneh-WMedium, L23 and L26 for Taraneh-WLarge, and L20–L25 for Taraneh-Q0.6B. Taraneh-Q1.7B uses the same selection procedure; its three heads also sit in L20–L25.
+
+| Model | Heads used by `--task asr+fa` | FarsDat MAE |
+|---|---|---:|
+| Taraneh-WMedium | L19/H8, L16/H12 | 37.8 ms |
+| Taraneh-WLarge | L23/H3, L26/H7 | 38.1 ms |
+| Taraneh-Q0.6B | L22/H7, L24/H12, L20/H15 | 47.2 ms |
+| Taraneh-Q1.7B | L22/H7, L20/H14, L25/H5 | 48.5 ms |
+
+The full 6,039-clip FarsDat number is cross-fit, so clips in the dev half were scored with a second list chosen on a disjoint 300-clip pool. That list is identical for Taraneh-WLarge. For the other three models it is L19/H8 and L16/H3 (Taraneh-WMedium), L22/H7, L24/H12, and L25/H10 (Taraneh-Q0.6B), and L22/H7, L23/H14, and L22/H12 (Taraneh-Q1.7B). New audio uses the table above. Both lists are in `alignment/paper_heads.json`.
+
+```bash
+python scripts/infer.py \
+    --model Taraneh-WMedium \
+    --audio utt.wav \
+    --output_dir results/fa \
+    --task asr+fa
+```
+
+The scripts that ranked every head against gold word times are `alignment/whisper_head_select.py` and `alignment/qwen_head_select.py`. See `alignment/README.md`.
 
 ## Text normalization
 

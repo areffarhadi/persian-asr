@@ -17,7 +17,8 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from taraneh.inputs import collect_inputs, write_results  # noqa: E402
+from taraneh.forced_align import add_task_argument, complete  # noqa: E402
+from taraneh.inputs import collect_inputs  # noqa: E402
 from taraneh.models import resolve_model  # noqa: E402
 from taraneh.qwen_engine import transcribe as transcribe_qwen  # noqa: E402
 from taraneh.whisper_engine import transcribe as transcribe_whisper  # noqa: E402
@@ -37,6 +38,7 @@ def main():
     p.add_argument("--chunk_size_sec", type=float, default=2.0)
     p.add_argument("--compute_type", type=str, default="float16")
     p.add_argument("--compatible", action="store_true")
+    add_task_argument(p)
     args = p.parse_args()
 
     spec = resolve_model(args.model)
@@ -64,7 +66,7 @@ def main():
             compute_type=args.compute_type,
             compatible=args.compatible,
         )
-    write_results(rows, hyps, args.output_dir)
+    complete(spec, rows, hyps, args.output_dir, args.task, args.device)
     if len(rows) == 1 and not args.manifest:
         print(hyps[0])
 
