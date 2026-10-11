@@ -10,13 +10,13 @@
 
 Taraneh is a family of five Persian ASR models, fine-tuned on about 1,560 hours of Persian speech. Three are Whisper models and two are Qwen3-ASR models.
 
-| Name | Architecture | Base checkpoint |
-|---|---|---|
-| Taraneh-WBase | Whisper-Base | `openai/whisper-base` |
-| Taraneh-WMedium | Whisper-Medium | `openai/whisper-medium` |
-| Taraneh-WLarge | Whisper-Large-v3 | `openai/whisper-large-v3` |
-| Taraneh-Q0.6B | Qwen3-ASR-0.6B | `Qwen/Qwen3-ASR-0.6B` |
-| Taraneh-Q1.7B | Qwen3-ASR-1.7B | `Qwen/Qwen3-ASR-1.7B` |
+| Name | Base checkpoint |
+|---|---|
+| [Taraneh-WBase](https://huggingface.co/areffarhadi/Taraneh-WBase) | `openai/whisper-base` |
+| [Taraneh-WMedium](https://huggingface.co/areffarhadi/Taraneh-WMedium) | `openai/whisper-medium` |
+| [Taraneh-WLarge](https://huggingface.co/areffarhadi/Taraneh-WLarge) | `openai/whisper-large-v3` |
+| [Taraneh-Q0.6B](https://huggingface.co/areffarhadi/Taraneh-Q0.6B) | `Qwen/Qwen3-ASR-0.6B` |
+| [Taraneh-Q1.7B](https://huggingface.co/areffarhadi/Taraneh-Q1.7B) | `Qwen/Qwen3-ASR-1.7B` |
 
 ## Paper
 
@@ -45,11 +45,11 @@ Word error rate / character error rate (%), after the unified text normalization
 
 | Model | FLEURS | Common Voice | YouTube | Music | Media | PSRB | VisualEars |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Taraneh-WBase | 7.88 / 2.93 | 10.76 / 4.45 | 19.02 / 10.30 | 37.69 / 17.67 | 24.43 / 13.46 | 26.88 / 12.26 | 11.58 / 3.97 |
-| Taraneh-WMedium | 4.16 / 1.52 | 3.47 / 1.67 | 14.29 / 8.26 | **22.79 / 10.92** | **14.97 / 8.99** | 19.14 / 8.73 | 6.23 / 1.89 |
-| Taraneh-WLarge | **3.86 / 1.33** | **3.34 / 1.53** | **13.42 / 7.99** | 22.98 / 11.00 | 16.06 / 9.54 | **18.00 / 8.17** | **5.31 / 1.56** |
-| Taraneh-Q0.6B | 7.11 / 2.54 | 9.65 / 3.86 | 18.87 / 10.12 | 35.97 / 15.83 | 22.32 / 11.73 | 24.61 / 10.67 | 9.44 / 3.12 |
-| Taraneh-Q1.7B | 6.25 / 2.15 | 7.85 / 3.13 | 18.21 / 9.91 | 34.50 / 15.05 | 21.91 / 11.46 | 22.79 / 9.98 | 8.05 / 2.64 |
+| [Taraneh-WBase](https://huggingface.co/areffarhadi/Taraneh-WBase) | 7.88 / 2.93 | 10.76 / 4.45 | 19.02 / 10.30 | 37.69 / 17.67 | 24.43 / 13.46 | 26.88 / 12.26 | 11.58 / 3.97 |
+| [Taraneh-WMedium](https://huggingface.co/areffarhadi/Taraneh-WMedium) | 4.16 / 1.52 | 3.47 / 1.67 | 14.29 / 8.26 | **22.79 / 10.92** | **14.97 / 8.99** | 19.14 / 8.73 | 6.23 / 1.89 |
+| [Taraneh-WLarge](https://huggingface.co/areffarhadi/Taraneh-WLarge) | **3.86 / 1.33** | **3.34 / 1.53** | **13.42 / 7.99** | 22.98 / 11.00 | 16.06 / 9.54 | **18.00 / 8.17** | **5.31 / 1.56** |
+| [Taraneh-Q0.6B](https://huggingface.co/areffarhadi/Taraneh-Q0.6B) | 7.11 / 2.54 | 9.65 / 3.86 | 18.87 / 10.12 | 35.97 / 15.83 | 22.32 / 11.73 | 24.61 / 10.67 | 9.44 / 3.12 |
+| [Taraneh-Q1.7B](https://huggingface.co/areffarhadi/Taraneh-Q1.7B) | 6.25 / 2.15 | 7.85 / 3.13 | 18.21 / 9.91 | 34.50 / 15.05 | 21.91 / 11.46 | 22.79 / 9.98 | 8.05 / 2.64 |
 
 ## Install
 
