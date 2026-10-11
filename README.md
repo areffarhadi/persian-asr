@@ -43,13 +43,13 @@ This repository covers inference, forced alignment, manifest preparation, text n
 
 Word error rate / character error rate (%), after the unified text normalization in `persian_text_unify.py`. Lower is better. Bold marks the best fine-tuned model in each column. All five models were trained on the full ~1,560 h mix. PSRB and VisualEars were unseen at training time.
 
-| Model | FLEURS | Common Voice | YouTube | Music | Media | PSRB | VisualEars |
+| <small>Model</small> | <small>FLEURS</small> | <small>Common&nbsp;Voice</small> | <small>YouTube</small> | <small>Music</small> | <small>Media</small> | <small>PSRB</small> | <small>VisualEars</small> |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| [Taraneh-WBase](https://huggingface.co/areffarhadi/Taraneh-WBase) | 7.88 / 2.93 | 10.76 / 4.45 | 19.02 / 10.30 | 37.69 / 17.67 | 24.43 / 13.46 | 26.88 / 12.26 | 11.58 / 3.97 |
-| [Taraneh-WMedium](https://huggingface.co/areffarhadi/Taraneh-WMedium) | 4.16 / 1.52 | 3.47 / 1.67 | 14.29 / 8.26 | **22.79 / 10.92** | **14.97 / 8.99** | 19.14 / 8.73 | 6.23 / 1.89 |
-| [Taraneh-WLarge](https://huggingface.co/areffarhadi/Taraneh-WLarge) | **3.86 / 1.33** | **3.34 / 1.53** | **13.42 / 7.99** | 22.98 / 11.00 | 16.06 / 9.54 | **18.00 / 8.17** | **5.31 / 1.56** |
-| [Taraneh-Q0.6B](https://huggingface.co/areffarhadi/Taraneh-Q0.6B) | 7.11 / 2.54 | 9.65 / 3.86 | 18.87 / 10.12 | 35.97 / 15.83 | 22.32 / 11.73 | 24.61 / 10.67 | 9.44 / 3.12 |
-| [Taraneh-Q1.7B](https://huggingface.co/areffarhadi/Taraneh-Q1.7B) | 6.25 / 2.15 | 7.85 / 3.13 | 18.21 / 9.91 | 34.50 / 15.05 | 21.91 / 11.46 | 22.79 / 9.98 | 8.05 / 2.64 |
+| <small>[Taraneh&#8209;WBase](https://huggingface.co/areffarhadi/Taraneh-WBase)</small> | <small>7.88&nbsp;/&nbsp;2.93</small> | <small>10.76&nbsp;/&nbsp;4.45</small> | <small>19.02&nbsp;/&nbsp;10.30</small> | <small>37.69&nbsp;/&nbsp;17.67</small> | <small>24.43&nbsp;/&nbsp;13.46</small> | <small>26.88&nbsp;/&nbsp;12.26</small> | <small>11.58&nbsp;/&nbsp;3.97</small> |
+| <small>[Taraneh&#8209;WMedium](https://huggingface.co/areffarhadi/Taraneh-WMedium)</small> | <small>4.16&nbsp;/&nbsp;1.52</small> | <small>3.47&nbsp;/&nbsp;1.67</small> | <small>14.29&nbsp;/&nbsp;8.26</small> | <small>**22.79&nbsp;/&nbsp;10.92**</small> | <small>**14.97&nbsp;/&nbsp;8.99**</small> | <small>19.14&nbsp;/&nbsp;8.73</small> | <small>6.23&nbsp;/&nbsp;1.89</small> |
+| <small>[Taraneh&#8209;WLarge](https://huggingface.co/areffarhadi/Taraneh-WLarge)</small> | <small>**3.86&nbsp;/&nbsp;1.33**</small> | <small>**3.34&nbsp;/&nbsp;1.53**</small> | <small>**13.42&nbsp;/&nbsp;7.99**</small> | <small>22.98&nbsp;/&nbsp;11.00</small> | <small>16.06&nbsp;/&nbsp;9.54</small> | <small>**18.00&nbsp;/&nbsp;8.17**</small> | <small>**5.31&nbsp;/&nbsp;1.56**</small> |
+| <small>[Taraneh&#8209;Q0.6B](https://huggingface.co/areffarhadi/Taraneh-Q0.6B)</small> | <small>7.11&nbsp;/&nbsp;2.54</small> | <small>9.65&nbsp;/&nbsp;3.86</small> | <small>18.87&nbsp;/&nbsp;10.12</small> | <small>35.97&nbsp;/&nbsp;15.83</small> | <small>22.32&nbsp;/&nbsp;11.73</small> | <small>24.61&nbsp;/&nbsp;10.67</small> | <small>9.44&nbsp;/&nbsp;3.12</small> |
+| <small>[Taraneh&#8209;Q1.7B](https://huggingface.co/areffarhadi/Taraneh-Q1.7B)</small> | <small>6.25&nbsp;/&nbsp;2.15</small> | <small>7.85&nbsp;/&nbsp;3.13</small> | <small>18.21&nbsp;/&nbsp;9.91</small> | <small>34.50&nbsp;/&nbsp;15.05</small> | <small>21.91&nbsp;/&nbsp;11.46</small> | <small>22.79&nbsp;/&nbsp;9.98</small> | <small>8.05&nbsp;/&nbsp;2.64</small> |
 
 ## Install
 
