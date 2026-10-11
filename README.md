@@ -1,5 +1,9 @@
 # Taraneh-ASR: Persian speech recognition
 
+## درود بر پارسی‌زبانان،<br>و بر آن خاکِ گرامی.
+
+[Paper](ArefFarhadi-TaranehASR.pdf) · [Taraneh-WBase](https://huggingface.co/areffarhadi/Taraneh-WBase) · [Taraneh-WMedium](https://huggingface.co/areffarhadi/Taraneh-WMedium) · [Taraneh-WLarge](https://huggingface.co/areffarhadi/Taraneh-WLarge) · [Taraneh-Q0.6B](https://huggingface.co/areffarhadi/Taraneh-Q0.6B) · [Taraneh-Q1.7B](https://huggingface.co/areffarhadi/Taraneh-Q1.7B)
+
 Taraneh is a family of five Persian ASR models, fine-tuned on about 1,560 hours of Persian speech. Three are Whisper models and two are Qwen3-ASR models.
 
 | Name | Architecture | Base checkpoint |
