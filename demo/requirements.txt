@@ -1,0 +1,8 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch
+transformers==4.57.6
+accelerate==1.12.0
+qwen-asr==0.0.6
+gradio==5.49.1
+soundfile
+numpy

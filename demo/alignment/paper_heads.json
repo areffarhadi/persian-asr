@@ -1,0 +1,22 @@
+{
+  "Taraneh-WMedium": {
+    "family": "whisper",
+    "heads": [[19, 8], [16, 12]],
+    "crossfit_on_dev_half": [[19, 8], [16, 3]]
+  },
+  "Taraneh-WLarge": {
+    "family": "whisper",
+    "heads": [[23, 3], [26, 7]],
+    "crossfit_on_dev_half": [[23, 3], [26, 7]]
+  },
+  "Taraneh-Q0.6B": {
+    "family": "qwen",
+    "heads": [[22, 7], [24, 12], [20, 15]],
+    "crossfit_on_dev_half": [[22, 7], [24, 12], [25, 10]]
+  },
+  "Taraneh-Q1.7B": {
+    "family": "qwen",
+    "heads": [[22, 7], [20, 14], [25, 5]],
+    "crossfit_on_dev_half": [[22, 7], [23, 14], [22, 12]]
+  }
+}
