@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/Taraneh-ASR.png" alt="Taraneh-ASR — Persian Automatic Speech Recognition" width="100%">
+</p>
+
 # Taraneh-ASR: Persian speech recognition
 
 <p align="center">
